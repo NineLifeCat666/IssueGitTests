@@ -1,0 +1,17 @@
+pluginManagement {
+    resolutionStrategy {
+        eachPlugin {
+            if (requested.id.namespace == 'ru.vyarus.quality') {
+                useModule('ru.vyarus:gradle-quality-plugin')
+            }
+        }
+    }
+    repositories {
+        maven { url 'https://jitpack.io' }
+        gradlePluginPortal()
+    }
+}
+
+rootProject.name = 'IssueGitTests'
+
+

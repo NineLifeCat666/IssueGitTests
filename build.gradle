@@ -1,0 +1,58 @@
+plugins {
+    id 'java'
+    id 'idea'
+    id "io.qameta.allure" version "2.8.1"
+    id 'ru.vyarus.quality' version '4.4.0'
+    id 'checkstyle'
+}
+quality {
+    checkstyleVersion = '8.36.2'
+    pmdVersion = '6.26.0'
+    spotbugsVersion = '4.1.3'
+    codenarcVersion = '2.0.0'
+
+    checkstyle = true;
+    pmd = true;
+    cpd = true;
+    spotbugs = true;
+    codenarc = true;
+    sourceSets = [project.sourceSets.main]
+    sourceSets = [project.sourceSets.test]
+    enabled = false;
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+allure {
+    autoconfigure = true
+    version = '2.13.6'
+    useJUnit5 {
+        version = '2.13.6'
+    }
+}
+
+dependencies {
+    implementation("io.qameta.allure:allure-selenide:2.13.6")
+    implementation ('com.codeborne:selenide:5.15.1')
+    testImplementation ("org.junit.jupiter:junit-jupiter-api:5.7.0")
+    testImplementation ("org.junit.jupiter:junit-jupiter-engine:5.7.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.7.0")
+}
+
+test {
+    useJUnitPlatform()
+}
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+task demo (type: Test){
+    useJUnitPlatform{
+        includeTags 'gitHubIssue'
+    }
+}
